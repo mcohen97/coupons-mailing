@@ -3,6 +3,6 @@
 class HomeController < ApplicationController
 
   def index
-    PromotionsMailer.welcome_email.deliver_later
+    SendExpirationMailJob.set(wait: 30.seconds).perform_later({user_email: 'diegomarcel27@hotmail.com'})
   end
 end
