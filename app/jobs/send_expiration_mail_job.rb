@@ -1,8 +1,11 @@
 class SendExpirationMailJob < ApplicationJob
   queue_as :default
+  discard_on ActiveJob::DeserializationError
 
-  def perform(*args)
+
+  def perform(user_mail)
     date= Date.new(2018, 11, 11)
-    PromotionsMailer.with(date: date, user_mail: args[:user_mail]).send_expiration_notification.deliver_later
+    puts "USER MAIL #{user_mail}"
+    PromotionsMailer.with(date: date, user_email: user_mail).send_expiration_notification.deliver_now
   end
 end
