@@ -1,0 +1,2 @@
+class PromotionsMailer < ApplicationMailer
+end
