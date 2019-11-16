@@ -2,7 +2,8 @@ class ExpirationEmailsScheduler
 
   def schedule_expiration(promotion)
     exp_date = promotion.expiration_date
-    if future_date(exp_date)
+    if future_date?(exp_date)
+      puts 'SE MANDAN MAILS'
       organization_administrators = UsersService.get_organization_administrators(promotion.organization_id)
       schedule_expiration_email(organization_administrators, promotion)
       schedule_expiration_warining_email(promotion)
@@ -11,6 +12,12 @@ class ExpirationEmailsScheduler
 
 private
 
+  def future_date?(date)
+    puts DateTime.now
+    puts date
+    date >= DateTime.now
+  end
+
   def schedule_expiration_email(administrators, promotion)
     schedule(administrators, promotion, promotion.expiration_date)
   end
@@ -18,9 +25,11 @@ private
   def schedule_expiration_warining_email(administrators, promotion)
     diff_in_hours = (promotion.expiration_date - DateTime.now) / 1.hours
     if diff_in_hours < 24
+      puts 'VENCE EN POCO TIEMPO'
       # if expires in less than a day, send it right away
       schedule(administrators, promotion, promotion.expiration_date, nil)
     else
+      puts 'VENCE EN MAS DE UN DIA'
       schedule(administrators, promotion, promotion.expiration_date, promotion.prev_day)
     end
   end
