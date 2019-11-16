@@ -6,6 +6,7 @@ class Services
   end
 
   def self.services
-    { expiration_emails_scheduler: nil}
+    expiration_emails_scheduler = ExpirationEmailsScheduler.new()
+    { expiration_emails_scheduler: expiration_emails_scheduler}
   end
 end
