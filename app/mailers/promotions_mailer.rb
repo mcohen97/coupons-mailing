@@ -4,8 +4,10 @@ class PromotionsMailer < ApplicationMailer
     puts 'SE MANDA MAIL'
     @date = params[:date]
     @user_email = params[:user_email]
-    @url  = 'http://example.com/login'
-    mail(to: @user_email, subject: 'Welcome to My Awesome Site')
+    @promotion_code  = params[:promotion_code]
+    @promotion_name = params[:promotion_name]
+    
+    mail(to: @user_email, subject: 'Promotion of code ')
   rescue Net::SMTPFatalError => e
     puts 'ERROR'
     Rails.logger.error(e.message)
