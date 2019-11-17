@@ -3,9 +3,13 @@ class SendExpirationMailJob < ApplicationJob
   discard_on ActiveJob::DeserializationError
 
 
-  def perform(user_mail)
-    date= Date.new(2018, 11, 11)
-    puts "USER MAIL #{user_mail}"
-    PromotionsMailer.with(date: date, user_email: user_mail).send_expiration_notification.deliver_now
+  def perform(data)
+    if data[:expired]
+      PromotionsMailer.with(user_email: data[:user_email],
+        promotion_code: data[:promotion_code], promotion_name: data[:promotion_name]).send_expired_notification.deliver_now
+    else
+      PromotionsMailer.with(date: data[:date], user_email: data[:user_email],
+        promotion_code: data[:promotion_code], promotion_name: data[:promotion_name]).send_expiring_soon_notification.deliver_now
+    end
   end
 end
