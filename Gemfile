@@ -10,12 +10,18 @@ gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 
+# Use Sidekiq to schedule jobs
 gem 'sidekiq'
 
+# Use bunny and sneakers to work with rabbitmq
 gem 'bunny'
 gem 'sneakers'
+
+# Use faraday to make http requests
+gem 'faraday'
+gem 'faraday_middleware'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.7'
+gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
