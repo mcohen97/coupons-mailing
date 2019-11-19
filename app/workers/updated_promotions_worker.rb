@@ -2,6 +2,10 @@ class UpdatedPromotionsWorker
   include Sneakers::Worker
   # env is set to nil since by default the actual queue name would have the env appended to the end
   from_queue ENV['UPDATED_PROMOTIONS_QUEUE'],
+  amqp: ENV['PROMOTIONS_QUEUE_SERVER_URL'],
+  exchange: ENV['PROMOTIONS_EXCHANGE'],
+  exchange_type: :topic,
+  routing_key: ENV['UPDATED_PROMOTIONS_BINDING_KEY'],
   env: nil,
   durable: true
 
@@ -11,7 +15,7 @@ class UpdatedPromotionsWorker
   # which we can pass to service without
   # changes
   def work(raw_data)
-    puts 'RECIBO PROMOCION'
+    puts 'PROMOCION EDITADA'
     raw_data = JSON.parse(raw_data)
     promotion_info = PromotionInfo.new(raw_data)
     Services.expiration_emails_scheduler.reschedule_expiration(promotion_info)
