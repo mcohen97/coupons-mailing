@@ -10,6 +10,8 @@ class UserInvitationsMailer < ApplicationMailer
     @registration_url = "#{params[:registration_url]}/#{@invitation_code}"
     puts "mail para #{@email_invited}"
     mail(to: @email_invited, subject: @sender_name + ' invited you to join Coupons')
+  rescue NoMethodError => e
+    Rails.logger.error(e.message)
   end
 
 end
