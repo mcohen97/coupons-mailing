@@ -2,6 +2,7 @@ class CreatedPromotionsWorker
   include Sneakers::Worker
 
   from_queue ENV['CREATED_PROMOTIONS_QUEUE'],
+  amqp: ENV['QUEUE_SERVER_HOST'],
   exchange: ENV['PROMOTIONS_EXCHANGE'],
   exchange_type: :topic,
   routing_key: ENV['CREATED_PROMOTIONS_BINDING_KEY'],
