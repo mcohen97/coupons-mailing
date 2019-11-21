@@ -11,6 +11,7 @@ class UpdatedPromotionsWorker
 
   def work(raw_data)
     puts 'PROMOCION EDITADA'
+    Rails.logger.info('PROMOCION EDITADA')
     raw_data = JSON.parse(raw_data)
     promotion_info = PromotionInfo.new(raw_data)
     Services.expiration_emails_scheduler.reschedule_expiration(promotion_info)
