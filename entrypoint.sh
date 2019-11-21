@@ -4,7 +4,7 @@ set -e
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f /application/tmp/pids/server.pid
 
-#sidekiq -q default -q mailers & disown
+sidekiq -q default -q mailers & disown
 
 WORKERS=CreatedPromotionsWorker,UpdatedPromotionsWorker,UserInvitedWorker rake sneakers:run
 
