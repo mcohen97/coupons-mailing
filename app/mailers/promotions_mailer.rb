@@ -1,7 +1,7 @@
 class PromotionsMailer < ApplicationMailer
 
   def send_expiring_soon_notification
-    @when = (params[:date].to_date == Date.today) ? "today" : "tomorrow" 
+    @when = decide_today_or_tomorrow_in_text(params[:date])
     set_common_attributes
     send_mail("Promotion #{@promotion_code} will expire soon")
   end
@@ -31,6 +31,12 @@ private
   rescue Net::SMTPFatalError => e
     puts 'ERROR'
     Rails.logger.error(e.message)
+  end
+
+  def decide_today_or_tomorrow_in_text(date)
+    puts date.to_date
+    puts Date.today
+    return date.to_date == Date.today ? "today" : "tomorrow" 
   end
 
 end
