@@ -1,11 +1,12 @@
 class InvitationEmailsSender
 
   def send_invitation_email(invitation_info)
-    UserInvitationsMailer.with(email_invited: invitation_info.invitation_info,
-       sender_name: invitation_info.sender_name, 
+    puts 'SE VA A ENVIAR EL MAIL'
+    UserInvitationsMailer.with(email_invited: invitation_info.email_invited,
+       sender_name: invitation_info.sender_name,
+       sender_surname:  invitation_info.sender_surname,
        organization_name: invitation_info.organization_name, 
        invitation_code: invitation_info.code,
-       registration_url: ENV['USER_REGISTRATION_URL']).invitation_email.deliver_later
+       registration_url: ENV['USER_REGISTRATION_URL']).send_invitation.deliver_now
   end
-
 end
