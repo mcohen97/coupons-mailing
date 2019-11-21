@@ -5,11 +5,11 @@ class UsersService
   end
 
   def get_organization_administrators(organization_id)
-    return [{email: 'diegomarcel27@hotmail.com'}]
-
-    #get '/v1/PedidosYa/users', ''
-    
+    puts 'SE HACE LA REQUEST'
+    response = get "/v1/organizations/#{organization_id}/users", ''
+    return response.map { |r| {email: r['username']} } 
   end
+
 private
     
   def create_connection
