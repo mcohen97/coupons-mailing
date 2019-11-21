@@ -81,7 +81,7 @@ private
 
   def add_job(expired,date, promotion, email)
     job = SendExpirationMailJob.set(wait_until: date).perform_later(expired: expired,
-      date: date,
+      date: promotion.expiration_date,
       user_email: email,
       promotion_id: promotion.id,
       promotion_code: promotion.code, 

@@ -28,7 +28,7 @@ private
 
   def send_mail(subject)
     mail(to: @user_email, subject: subject)
-  rescue Net::SMTPFatalError => e
+  rescue Net::SMTPFatalError, ArgumentError => e
     puts 'ERROR'
     Rails.logger.error(e.message)
   end
